@@ -52,7 +52,7 @@ const wrapperSizeStyles = (size) => {
 };
 
 const ProgressBar = ({ value, size }) => {
-  size = Math.min(Math.max(size, 0), 100);
+  value = Math.min(Math.max(value, 0), 100);
   const sizeStyles = wrapperSizeStyles(size);
   const barStyles = {
     "--width": `${value}%`,
