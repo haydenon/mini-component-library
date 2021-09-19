@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   height: var(--height);
   border-radius: var(--borderRadius);
   padding: var(--padding);
+  box-shadow: inset 0px 2px 4px 0px ${COLORS.transparentGray35};
 `;
 
 const Trimmer = styled.div`
