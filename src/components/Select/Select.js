@@ -7,27 +7,31 @@ import { getDisplayedValue } from "./Select.helpers";
 
 const Wrapper = styled.div`
   position: relative;
-  width: fit-content;
+  width: max-content;
 `;
 
 const NativeSelect = styled.select`
   position: absolute;
   appearance: none;
   -webkit-appearance: none;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: transparent;
-  color: transparent;
+  opacity: 0;
   border: none;
   outline: none;
 `;
 
 const CustomSelect = styled.div`
-  width: fit-content;
+  width: max-content;
   background-color: ${COLORS.transparentGray15};
   border-radius: 8px;
   padding: 12px 16px;
+  padding-right: 52px;
   color: ${COLORS.gray700};
+  font-family: "Roboto", sans-serif;
+  font-size: ${16 / 16}rem;
 
   ${NativeSelect}:focus + & {
     outline: 2px solid #4374cb;
@@ -39,13 +43,15 @@ const CustomSelect = styled.div`
   }
 `;
 
-const SelectIcon = styled(Icon)`
-  padding-top: 2px;
-  display: inline-block;
-`;
-
-const Content = styled.span`
-  padding-right: 24px;
+const IconWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 10px;
+  margin: auto;
+  width: var(--size);
+  height: var(--size);
+  pointer-events: none;
 `;
 
 const Select = ({ label, value, onChange, children }) => {
@@ -57,8 +63,10 @@ const Select = ({ label, value, onChange, children }) => {
         {children}
       </NativeSelect>
       <CustomSelect>
-        <Content>{displayedValue}</Content>
-        <SelectIcon id="chevron-down" size={16} strokeWidth={3}></SelectIcon>
+        {displayedValue}
+        <IconWrapper style={{ "--size": "16px" }}>
+          <Icon id="chevron-down" size={16} strokeWidth={3}></Icon>
+        </IconWrapper>
       </CustomSelect>
     </Wrapper>
   );
