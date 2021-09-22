@@ -14,14 +14,15 @@ const Wrapper = styled.label`
 `;
 
 const Input = styled.input`
-  padding-left: 26px;
+  padding-left: calc(var(--paddingIcon) + 10px);
   border: none;
   outline-offset: 4px;
   width: 100%;
-  padding-bottom: 4px;
+  padding-bottom: var(--paddingBottom);
   border-radius: 2px;
+  line-height: var(--lineHeight);
 
-  font-size: ${14 / 16}rem;
+  font-size: var(--fontSize);
 
   color: ${COLORS.gray700};
   font-weight: 700;
@@ -39,7 +40,7 @@ const Input = styled.input`
 const InputIcon = styled(Icon)`
   position: absolute;
   top: 0;
-  bottom: 4px;
+  bottom: ${(p) => p.paddingBottom};
   left: 0;
   margin: auto;
   color: ${COLORS.gray700};
@@ -49,13 +50,51 @@ const InputIcon = styled(Icon)`
   }
 `;
 
+const SIZES = {
+  small: {
+    fontSize: 14,
+    lineHeight: 16,
+    strokeWidth: 2,
+    paddingIcon: 12,
+    paddingBottom: 4,
+  },
+  large: {
+    fontSize: 18,
+    lineHeight: 21,
+    strokeWidth: 3,
+    paddingIcon: 22,
+    paddingBottom: 6,
+  },
+};
+
+const getInputStyles = ({
+  fontSize,
+  paddingIcon,
+  paddingBottom,
+  lineHeight,
+}) => ({
+  "--fontSize": `${fontSize / 16}rem`,
+  "--paddingIcon": `${paddingIcon}px`,
+  "--paddingBottom": `${paddingBottom}px`,
+  "--lineHeight": `${lineHeight}px`,
+});
+
 const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
-  const style = { "--width": `${width}px` };
+  const sizeStyles = SIZES[size] || SIZES["small"];
+  const wrapperStyles = { "--width": `${width}px` };
   return (
-    <Wrapper style={style}>
+    <Wrapper style={wrapperStyles}>
       <VisuallyHidden>{label}</VisuallyHidden>
-      <Input placeholder={placeholder}></Input>
-      <InputIcon id={icon} size={16} strokeWidth={2} />
+      <Input
+        style={getInputStyles(sizeStyles)}
+        placeholder={placeholder}
+      ></Input>
+      <InputIcon
+        id={icon}
+        paddingBottom={`${sizeStyles.paddingBottom}px`}
+        size={sizeStyles.lineHeight}
+        strokeWidth={sizeStyles.strokeWidth}
+      />
     </Wrapper>
   );
 };
