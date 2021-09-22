@@ -11,15 +11,6 @@ const Wrapper = styled.label`
   border-bottom: solid 1px ${COLORS.black};
   position: relative;
   width: var(--width);
-  padding-bottom: 4px;
-`;
-
-const InputIcon = styled(Icon)`
-  position: absolute;
-  top: 0;
-  bottom: 4;
-  left: 0;
-  margin: auto;
 `;
 
 const Input = styled.input`
@@ -27,6 +18,35 @@ const Input = styled.input`
   border: none;
   outline-offset: 4px;
   width: 100%;
+  padding-bottom: 4px;
+  border-radius: 2px;
+
+  font-size: ${14 / 16}rem;
+
+  color: ${COLORS.gray700};
+  font-weight: 700;
+
+  &:hover {
+    color: ${COLORS.black};
+  }
+
+  &::placeholder {
+    color: ${COLORS.gray500};
+    font-weight: 400;
+  }
+`;
+
+const InputIcon = styled(Icon)`
+  position: absolute;
+  top: 0;
+  bottom: 4px;
+  left: 0;
+  margin: auto;
+  color: ${COLORS.gray700};
+
+  ${Input}:hover + & {
+    color: ${COLORS.black};
+  }
 `;
 
 const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
@@ -34,8 +54,8 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
   return (
     <Wrapper style={style}>
       <VisuallyHidden>{label}</VisuallyHidden>
-      <InputIcon id={icon} size={16} strokeWidth={2} />
       <Input placeholder={placeholder}></Input>
+      <InputIcon id={icon} size={16} strokeWidth={2} />
     </Wrapper>
   );
 };
