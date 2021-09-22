@@ -8,29 +8,29 @@ import VisuallyHidden from "../VisuallyHidden";
 
 const Wrapper = styled.label`
   display: block;
-  border-bottom: solid 1px ${COLORS.black};
   position: relative;
-  width: var(--width);
+
+  width: max-content;
+  color: ${COLORS.gray700};
+
+  &:hover {
+    color: ${COLORS.black};
+  }
 `;
 
 const Input = styled.input`
   padding-left: var(--paddingIcon);
   border: none;
   outline-offset: 4px;
-  width: 100%;
-  padding-bottom: var(--paddingBottom);
-  border-radius: 2px;
-  line-height: var(--lineHeight);
+  width: var(--width);
+  height: var(--height);
+  border-bottom: solid var(--borderThickness) ${COLORS.black};
 
   font-family: "Roboto", sans-serif;
   font-size: var(--fontSize);
 
-  color: ${COLORS.gray700};
+  color: inherit;
   font-weight: 700;
-
-  &:hover {
-    color: ${COLORS.black};
-  }
 
   &::placeholder {
     color: ${COLORS.gray500};
@@ -41,61 +41,56 @@ const Input = styled.input`
 const InputIcon = styled(Icon)`
   position: absolute;
   top: 0;
-  bottom: ${(p) => p.paddingBottom};
+  bottom: 0;
   left: 0;
-  margin: auto;
-  color: ${COLORS.gray700};
-
-  ${Input}:hover + & {
-    color: ${COLORS.black};
-  }
+  margin: auto 0;
 `;
 
 const SIZES = {
   small: {
     fontSize: 14,
-    lineHeight: 16,
-    strokeWidth: 2,
+    iconSize: 16,
     paddingIcon: 24,
-    paddingBottom: 4,
+    borderThickness: 1,
+    height: 24,
   },
   large: {
     fontSize: 18,
-    lineHeight: 21,
-    strokeWidth: 3,
+    iconSize: 24,
     paddingIcon: 36,
-    paddingBottom: 6,
+    borderThickness: 3,
+    height: 36,
   },
 };
 
 const getInputStyles = ({
   fontSize,
   paddingIcon,
-  paddingBottom,
-  lineHeight,
+  borderThickness,
+  height,
 }) => ({
   "--fontSize": `${fontSize / 16}rem`,
   "--paddingIcon": `${paddingIcon}px`,
-  "--paddingBottom": `${paddingBottom}px`,
-  "--lineHeight": `${lineHeight}px`,
+  "--borderThickness": `${borderThickness}px`,
+  "--height": `${height / 16}rem`,
 });
 
 const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
   const sizeStyles = SIZES[size] || SIZES["small"];
-  const wrapperStyles = { "--width": `${width}px` };
+  const inputStyles = {
+    ...getInputStyles(sizeStyles),
+    "--width": `${width}px`,
+  };
   return (
-    <Wrapper style={wrapperStyles}>
+    <Wrapper>
       <VisuallyHidden>{label}</VisuallyHidden>
-      <Input
-        style={getInputStyles(sizeStyles)}
-        placeholder={placeholder}
-      ></Input>
       <InputIcon
         id={icon}
         paddingBottom={`${sizeStyles.paddingBottom}px`}
-        size={sizeStyles.lineHeight}
-        strokeWidth={sizeStyles.strokeWidth}
+        size={sizeStyles.iconSize}
+        strokeWidth={2}
       />
+      <Input style={inputStyles} placeholder={placeholder}></Input>
     </Wrapper>
   );
 };
