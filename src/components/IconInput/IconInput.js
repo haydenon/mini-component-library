@@ -14,7 +14,7 @@ const Wrapper = styled.label`
 `;
 
 const Input = styled.input`
-  padding-left: calc(var(--paddingIcon) + 10px);
+  padding-left: var(--paddingIcon);
   border: none;
   outline-offset: 4px;
   width: 100%;
@@ -22,6 +22,7 @@ const Input = styled.input`
   border-radius: 2px;
   line-height: var(--lineHeight);
 
+  font-family: "Roboto", sans-serif;
   font-size: var(--fontSize);
 
   color: ${COLORS.gray700};
@@ -55,14 +56,14 @@ const SIZES = {
     fontSize: 14,
     lineHeight: 16,
     strokeWidth: 2,
-    paddingIcon: 12,
+    paddingIcon: 24,
     paddingBottom: 4,
   },
   large: {
     fontSize: 18,
     lineHeight: 21,
     strokeWidth: 3,
-    paddingIcon: 22,
+    paddingIcon: 36,
     paddingBottom: 6,
   },
 };
